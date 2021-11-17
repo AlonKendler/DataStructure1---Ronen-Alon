@@ -17,53 +17,54 @@ bool isStringValidNumber(string str)
     return true;
 }
 
+int inputNumber()
+{
+    string str;
+    cin >> str;
+    if (!isStringValidNumber(str))
+    {
+        throw "wrong input";
+    }
+    return stoi(str);
+}
 inputFromUserStruct *inputFromUser()
 {
     inputFromUserStruct *input = new inputFromUserStruct();
     string strN, strNumber;
 
-    //input arr size (var of n)
-    cout << "Enter n: ";
-    cin >> strN;
-    if (!isStringValidNumber(strN))
+    try
     {
-        cout << "wrong input" << endl;
-        exit(1);
-    }
-    input->n = stoi(strN);
 
-    //inpt ARR
-    //allocate memory to array
-    string *stringArr = new string[input->n];
-    input->arr = new int[input->n];
+        // input n (arr size)
+        cout << "Enter n: ";
+        input->n = inputNumber();
 
-    cout << "inputing array - Enter " << input->n << " numbers: ";
-    for (int i = 0; i < input->n; i++)
-    {
-        cin >> stringArr[i];
-        if (!isStringValidNumber(stringArr[i]))
+        // input array
+        string *stringArr = new string[input->n];
+        input->arr = new int[input->n];
+
+        cout << "inputing array - Enter " << input->n << " numbers: ";
+        for (int i = 0; i < input->n; i++)
         {
-            cout << "arr number at index:" << i << "wrong input" << endl;
-            exit(1);
+            stringArr[i] = inputNumber();
         }
-    }
-    //pass stringArr to numericArr
-    for (int i = 0; i < input->n; i++)
-    {
-        input->arr[i] = stod(stringArr[i]);
-    }
 
-    delete[] stringArr;
+        for (int i = 0; i < input->n; i++)
+        {
+            input->arr[i] = stod(stringArr[i]); // pass stringArr to numericArr
+        }
 
-    //input number
-    cout << "Enter number: ";
-    cin >> strN;
-    if (!isStringValidNumber(strN))
-    {
-        cout << "wrong input" << endl;
-        exit(1);
+        // input number
+        cout << "Enter number: ";
+        input->number = inputNumber();
+
+        delete[] stringArr;
     }
-    input->number = stoi(strN);
+    catch (const std::exception &e)
+    {
+        cout << e.what();
+        exit(12);
+    }
 
     return input;
 }
