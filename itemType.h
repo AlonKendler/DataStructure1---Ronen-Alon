@@ -1,19 +1,28 @@
 #pragma once
 #include <stdlib.h>
 
-enum Type
+enum address
 {
-    TypeInt,
-    TypeAddress
+    START,
+    AFTER_CALL1,
+    AFTER_CALL2,
+    AFTER_CALL3
 };
 
 class ItemType
 {
 private:
-    int data;
-    Type t;
+    int size; 
+    int x; 
+    int y;
+    address adr;
 public:
-    ItemType(int number);
+    explicit ItemType();
+    ItemType(int size, int x, int y, address adr);
     ~ItemType();
-    int getInt();
+    address getAdress() const;
+    int getX() const;
+    int getY() const;
+    int getSize() const;
+    void setAdr(address adr);
 };

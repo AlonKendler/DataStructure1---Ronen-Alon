@@ -1,18 +1,42 @@
 #include "itemType.h"
 
-ItemType::ItemType(int num)
+ItemType::ItemType(int size, int x, int y, address adr): size(size), x(x), y(y), adr(adr)
 {
-    data = num;
-    t = TypeInt;
+
 }
 
+ItemType::ItemType()
+{
+    size = x = y = 0;
+    adr = START;
+}
 
 ItemType::~ItemType()
 {
 
 }
 
-int ItemType::getInt()
+address ItemType::getAdress() const
 {
-    return data;
+    return this->adr;
+}
+
+int ItemType::getX() const
+{
+    return x;
+}
+
+int ItemType::getY() const
+{
+    return y;
+}
+
+int ItemType::getSize() const
+{
+    return size;
+}
+
+void ItemType::setAdr(address adr)
+{
+    this->adr = adr;
 }

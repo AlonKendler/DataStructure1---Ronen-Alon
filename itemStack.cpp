@@ -56,7 +56,7 @@ ItemType ItemStackNode::getData()
     return data;
 }
 
-ItemStackNode::ItemStackNode(): data(0)
+ItemStackNode::ItemStackNode()
 {
     makeDummy();
 }
@@ -68,6 +68,6 @@ ItemStackNode::~ItemStackNode()
 
 void ItemStackNode::makeDummy()
 {
-    this->data = ItemType(0);
+    this->data = ItemType();
     this->next = nullptr;
 }

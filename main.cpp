@@ -14,7 +14,7 @@ int main()
     cout << "the n is " << input->n << '\n';
 
 
-    vector<subSumPair>* res = subSumRecursiveWrap(input->arr, input->n, input->number);
+    vector<subSumPair>* res = subSumRecursiveEmulated(input->arr, input->n, input->number);
 
     for(auto& pair: *res)
     {
