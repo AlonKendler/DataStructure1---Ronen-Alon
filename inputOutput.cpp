@@ -32,6 +32,12 @@ inputFromUserStruct *inputFromUser()
     }
     input->n = stoi(strN);
 
+    if(input->n<=0)
+    {
+        cout << "wrong input" << endl;
+        exit(1);
+    }
+
     //inpt ARR
     //allocate memory to array
     string *stringArr = new string[input->n];
@@ -57,7 +63,9 @@ inputFromUserStruct *inputFromUser()
 
     //input number
     cout << "Enter number: ";
-    cin >> strN;
+    char *last_input = new char[21];
+    cin.getline(last_input, 20);
+    strN.assign(last_input);
     if (!isStringValidNumber(strN))
     {
         cout << "wrong input" << endl;
