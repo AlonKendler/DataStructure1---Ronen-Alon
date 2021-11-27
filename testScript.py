@@ -3,7 +3,7 @@ import subprocess
 from os import listdir 
 
 TEST_INPUT_DIR="testFiles/input"
-TEST_OUTPUT_DIR="testFiles/input"
+TEST_OUTPUT_DIR="testFiles/output"
 TEST_RES_DIR="testFiles/res"
 exec_name ="main" # add .exe for windows
 
@@ -15,6 +15,9 @@ for file in input_files:
 output_files=listdir(TEST_OUTPUT_DIR)
 res_files=listdir(TEST_RES_DIR)
 
+res_files.sort()
+output_files.sort()
+
 diffs = []
 
 for i in range(len(output_files)):
@@ -24,9 +27,9 @@ for i in range(len(output_files)):
             output_lines = foutput.readlines()
             res_lines = fres.readlines()
             for i in range(min(len(res_lines), len(output_lines))):
-                if output_lines[i] != res_lines[i]:
+                if not output_lines[i] in res_lines[i]:
                     diff=diff+1
-            diff = diff + max(len(output_files), len(res_lines)) - min(len(output_files), len(res_lines)) 
+            diff = diff + max(len(output_lines), len(res_lines)) - min(len(output_lines), len(res_lines)) 
     diffs.append(diff)
 
 

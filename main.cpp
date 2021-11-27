@@ -1,6 +1,7 @@
 #include <iostream>
 #include "inputOutput.h"
 #include "subSumVersions.h"
+#include "subSumFuncTimer.h"
 
 using std::cin;
 using std::cout;
@@ -19,13 +20,13 @@ int main()
 {
     inputFromUserStruct *input = inputFromUser();
 
-    vector<subSumPair> *resIterative = subSumIterrative(input->arr, input->n, input->number);
+    vector<subSumPair> *resIterative = funcTimer(subSumIterrative, "subSumIterrative", input->arr, input->n, input->number);
     printResult(resIterative, "Iterative:");
 
-    vector<subSumPair> *resRecursive = subSumRecursiveWrap(input->arr, input->n, input->number);
+    vector<subSumPair> *resRecursive = funcTimer(subSumRecursiveWrap, "subSumRecursiveWrap", input->arr, input->n, input->number);
     printResult(resRecursive, "Recursive:");
 
-    vector<subSumPair> *resEmulated = subSumRecursiveEmulated(input->arr, input->n, input->number);
+    vector<subSumPair> *resEmulated = funcTimer(subSumRecursiveEmulated, "subSumRecursiveEmulated", input->arr, input->n, input->number);
     printResult(resEmulated, "Recursion implemented using stack:");
 
     resIterative->clear();

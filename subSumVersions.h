@@ -11,6 +11,6 @@ struct subSumPair
     int num2;
 };
 
-vector<subSumPair>* subSumIterrative(int *arr, int size, int x);
+vector<subSumPair>* subSumIterrative(int arr[], int size, int x);
 vector<subSumPair>* subSumRecursiveWrap(int arr[], int size, int x);
 vector<subSumPair>* subSumRecursiveEmulated(int arr[], int size, int x);
