@@ -9,10 +9,11 @@ using std::string;
 
 void printResult(vector<subSumPair> *res, string text)
 {
-    cout << text << '\n';
+    cout << text;
     for (auto &pair : *res)
     {
-        cout << pair.num1 << " " << pair.num2 << '\n';
+        cout << '\n';
+        cout << pair.num1 << " " << pair.num2;
     }
 }
 
@@ -22,9 +23,11 @@ int main()
 
     vector<subSumPair> *resIterative = funcTimer(subSumIterrative, "subSumIterrative", input->arr, input->n, input->number);
     printResult(resIterative, "Iterative:");
+    cout << "\n\n";
 
     vector<subSumPair> *resRecursive = funcTimer(subSumRecursiveWrap, "subSumRecursiveWrap", input->arr, input->n, input->number);
     printResult(resRecursive, "Recursive:");
+    cout << "\n\n";
 
     vector<subSumPair> *resEmulated = funcTimer(subSumRecursiveEmulated, "subSumRecursiveEmulated", input->arr, input->n, input->number);
     printResult(resEmulated, "Recursion implemented using stack:");
