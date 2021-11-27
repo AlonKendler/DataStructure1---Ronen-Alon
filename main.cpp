@@ -4,26 +4,36 @@
 
 using std::cin;
 using std::cout;
+using std::string;
 
-int main()
+void printResult(vector<subSumPair> *res, string text)
 {
-
-    inputFromUserStruct *input = inputFromUser();
-
-    cout << "the number is " << input->number << '\n';
-    cout << "the n is " << input->n << '\n';
-
-
-    vector<subSumPair>* res = subSumRecursiveEmulated(input->arr, input->n, input->number);
-
-    for(auto& pair: *res)
+    cout << text << '\n';
+    for (auto &pair : *res)
     {
         cout << pair.num1 << " " << pair.num2 << '\n';
     }
-    
-    res->clear();
-    delete res;
+}
+
+int main()
+{
+    inputFromUserStruct *input = inputFromUser();
+
+    vector<subSumPair> *resIterative = subSumIterrative(input->arr, input->n, input->number);
+    printResult(resIterative, "Iterative:");
+
+    vector<subSumPair> *resRecursive = subSumRecursiveWrap(input->arr, input->n, input->number);
+    printResult(resRecursive, "Recursive:");
+
+    vector<subSumPair> *resEmulated = subSumRecursiveEmulated(input->arr, input->n, input->number);
+    printResult(resEmulated, "Recursion implemented using stack:");
+
+    resIterative->clear();
+    delete resIterative;
+    resRecursive->clear();
+    delete resRecursive;
+    resEmulated->clear();
+    delete resEmulated;
 
     system("pause");
-
 }

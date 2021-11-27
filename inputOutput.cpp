@@ -22,8 +22,7 @@ inputFromUserStruct *inputFromUser()
     inputFromUserStruct *input = new inputFromUserStruct();
     string strN, strNumber;
 
-    //input arr size (var of n)
-    cout << "Enter n: ";
+    // input arr size
     cin >> strN;
     if (!isStringValidNumber(strN))
     {
@@ -32,28 +31,27 @@ inputFromUserStruct *inputFromUser()
     }
     input->n = stoi(strN);
 
-    if(input->n<=0)
+    if (input->n <= 0)
     {
         cout << "wrong input" << endl;
         exit(1);
     }
 
-    //inpt ARR
-    //allocate memory to array
+    // inpt ARR
+    // allocate memory to array
     string *stringArr = new string[input->n];
     input->arr = new int[input->n];
 
-    cout << "inputing array - Enter " << input->n << " numbers: ";
     for (int i = 0; i < input->n; i++)
     {
         cin >> stringArr[i];
         if (!isStringValidNumber(stringArr[i]))
         {
-            cout << "arr number at index:" << i << "wrong input" << endl;
+            cout << "wrong input" << endl;
             exit(1);
         }
     }
-    //pass stringArr to numericArr
+    // pass stringArr to numericArr
     for (int i = 0; i < input->n; i++)
     {
         input->arr[i] = stod(stringArr[i]);
@@ -61,17 +59,14 @@ inputFromUserStruct *inputFromUser()
 
     delete[] stringArr;
 
-    //input number
-    cout << "Enter number: ";
-    char *last_input = new char[21];
-    cin.getline(last_input, 20);
-    strN.assign(last_input);
-    if (!isStringValidNumber(strN))
+    // input number
+    cin >> strNumber;
+    if (!isStringValidNumber(strNumber))
     {
         cout << "wrong input" << endl;
         exit(1);
     }
-    input->number = stoi(strN);
+    input->number = stoi(strNumber);
 
     return input;
 }
