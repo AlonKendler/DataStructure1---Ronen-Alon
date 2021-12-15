@@ -1,25 +1,35 @@
-#include "item.h"
+#include <iostream>
 
+using std::ostream;
+
+/* template<class T> class TreeNode;
+template<class T> ostream& operator<<(ostream& cout, TreeNode<T>* h);
+ */
+template<typename T>
 class TreeNode 
 {
 private:
-    Item data;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode *twin;
+    T data;
+    TreeNode<T> *left;
+    TreeNode<T> *right;
+    TreeNode<T> *parent;
 public:
-    TreeNode(): left(nullptr), right(nullptr), twin(nullptr){}
-    TreeNode(TreeNode *left, TreeNode *right,TreeNode *twin): left(left), right(right), twin(twin){}
-    TreeNode(TreeNode *twin): left(nullptr), right(nullptr), twin(twin){}
+    TreeNode(): left(nullptr), right(nullptr), parent(nullptr) {}
+    TreeNode(TreeNode<T> *left, TreeNode<T> *right): left(left), right(right), parent(nullptr) {}
+    
+    TreeNode<T>* getLeft() const;
+    TreeNode<T>* getRight() const;
+    TreeNode<T>* getParent() const;
+    T& getData();
 
-    TreeNode* getLeft() const;
-    TreeNode* getRight() const;
-    TreeNode* getTwin() const;
-    const Item& getData() const;
 
+    void setLeft(TreeNode<T>* const left);
+    void setRight(TreeNode<T>* const right);
+    void setData(const T& data);
+    void setParent(TreeNode<T>* const parent);
 
-    void setLeft(TreeNode* const left);
-    void setRight(TreeNode* const right);
-    void setData(const Item& data);
-    void setTwin(TreeNode* const twin);
+    template<typename U>
+    friend ostream& operator<<(ostream& cout, const TreeNode<U>* h);
+    
+    bool operator<(TreeNode<T>* t1);
 };

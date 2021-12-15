@@ -1,40 +1,65 @@
 #include "treeNode.h"
 
-TreeNode* TreeNode::getLeft() const
+template<class T>
+TreeNode<T>* TreeNode<T>::getLeft() const
 {
     return left;
 }
 
-TreeNode* TreeNode::getRight() const
+template<class T>
+TreeNode<T>* TreeNode<T>::getRight() const
 {
     return right;
 }
 
-TreeNode* TreeNode::getTwin() const
-{
-    return twin;
-}
-
-const Item& TreeNode::getData() const
+template<class T>
+T& TreeNode<T>::getData()
 {
     return data;
 }
 
+template<class T>
+TreeNode<T>* TreeNode<T>::getParent() const
+{
+    return parent;
+}
 
-void TreeNode::setLeft(TreeNode* const left)
+template<class T>
+void TreeNode<T>::setLeft(TreeNode<T>* const left)
 {
     this->left = left;
+    if(left)
+        left->parent = this;
 }
-void TreeNode::setRight(TreeNode* const right)
+
+template<class T>
+void TreeNode<T>::setRight(TreeNode<T>* const right)
 {
     this->right = right;
+    if(right)
+        right->parent=this;
 }
-void TreeNode::setData(const Item& data)
+
+template<class T>
+void TreeNode<T>::setData(const T& data)
 {
     this->data = data;
 }
-void TreeNode::setTwin(TreeNode* const twin)
+
+template<class T>
+void TreeNode<T>::setParent(TreeNode<T>* const parent)
 {
-    this->twin = twin;
+    this->parent = parent;
 }
 
+template<class U>
+ostream& operator<<(ostream &cout, const TreeNode<U>* h)
+{
+    return cout << h->data << h->getLeft() << h->getRight();
+}
+
+template<class T>
+bool TreeNode<T>::operator<(TreeNode<T>* t1)
+{
+    return this->data<t1->data;
+}

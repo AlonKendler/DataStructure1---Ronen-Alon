@@ -1,17 +1,30 @@
 #include "treeNode.h"
+#include <iostream>
 
+using std::ostream;
 
+/* template<class T> class heap;
+template<class T> ostream& operator<<(ostream& cout, heap<T>* h);
+ */
+template<class T>
 class heap
 {
-    int (*cmp_func)(Item& const i1, Item& const i2);
-    TreeNode* head;
-    TreeNode* tail;
+private:
+    TreeNode<T>* head;
+    TreeNode<T>* tail;
     int itemCount;
-public:
-    heap(int (*cmp_func)(Item& const i1, Item& const i2)): head(nullptr), tail(nullptr), cmp_func(cmp_func), itemCount(0){}
 
-    const TreeNode* Insert(Item t, TreeNode* twin);//returns where the Item is to set twins
-    const Item& Top() const;
-    void fixHeap(TreeNode *borked);
-    TreeNode* removeTop();
+    TreeNode<T>* getNextFreeParent();
+    TreeNode<T>* heapifyUp(TreeNode<T>* node);
+
+public:
+    heap(): head(nullptr), tail(nullptr) , itemCount(0) {}
+
+    const TreeNode<T>* Insert(T data);
+    const T& Top() const;
+    void fixHeap(TreeNode<T>* borked);
+    TreeNode<T>* removeTop();
+
+    template<class U>
+    friend ostream& operator<<(ostream& cout, heap<U>* h);
 };
