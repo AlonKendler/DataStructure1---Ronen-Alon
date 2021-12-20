@@ -1,6 +1,7 @@
 #include <iostream>
 
 using std::ostream;
+using std::cout;
 
 /* template<class T> class TreeNode;
 template<class T> ostream& operator<<(ostream& cout, TreeNode<T>* h);
@@ -19,17 +20,15 @@ public:
     
     TreeNode<T>* getLeft() const;
     TreeNode<T>* getRight() const;
-    TreeNode<T>* getParent() const;
-    T& getData();
+    const TreeNode<T>* getParent() const;
+    const T& getData() const;
 
 
     void setLeft(TreeNode<T>* const left);
     void setRight(TreeNode<T>* const right);
     void setData(const T& data);
     void setParent(TreeNode<T>* const parent);
-
-    template<typename U>
-    friend ostream& operator<<(ostream& cout, const TreeNode<U>* h);
+    void print() const;
     
-    bool operator<(TreeNode<T>* t1);
+    bool operator<(TreeNode<T>* t1) const;
 };

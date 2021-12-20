@@ -1,10 +1,28 @@
 #include "treeNode.h"
 
+template class TreeNode<int>;
+
 template<class T>
 TreeNode<T>* TreeNode<T>::getLeft() const
 {
     return left;
 }
+
+template<class T>
+void TreeNode<T>::print() const
+{
+    cout << data;
+    if(left)
+    {
+        left->print();
+    }
+    if(right)
+    {
+        right->print();
+    }
+    cout << "\n";
+}
+
 
 template<class T>
 TreeNode<T>* TreeNode<T>::getRight() const
@@ -13,13 +31,13 @@ TreeNode<T>* TreeNode<T>::getRight() const
 }
 
 template<class T>
-T& TreeNode<T>::getData()
+const T& TreeNode<T>::getData() const
 {
     return data;
 }
 
 template<class T>
-TreeNode<T>* TreeNode<T>::getParent() const
+const TreeNode<T>* TreeNode<T>::getParent() const
 {
     return parent;
 }
@@ -52,14 +70,8 @@ void TreeNode<T>::setParent(TreeNode<T>* const parent)
     this->parent = parent;
 }
 
-template<class U>
-ostream& operator<<(ostream &cout, const TreeNode<U>* h)
-{
-    return cout << h->data << h->getLeft() << h->getRight();
-}
-
 template<class T>
-bool TreeNode<T>::operator<(TreeNode<T>* t1)
+bool TreeNode<T>::operator<(TreeNode<T>* t1) const
 {
     return this->data<t1->data;
 }
