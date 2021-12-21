@@ -22,6 +22,6 @@ public:
     const T& min();
     const T& deleteMin();
     const T& median();
-    void insert(const T& val);
+    void insert(T& val);
     
 };

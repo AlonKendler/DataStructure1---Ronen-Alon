@@ -43,7 +43,7 @@ TreeNode<T>* TreeNode<T>::getRight() const
 }
 
 template<class T>
-const T& TreeNode<T>::getData() const
+T* TreeNode<T>::getData() const
 {
     return data;
 }
@@ -77,7 +77,7 @@ void TreeNode<T>::setRight(TreeNode<T>* const right)
 }
 
 template<class T>
-void TreeNode<T>::setData(const T& data)
+void TreeNode<T>::setData(T* data)
 {
     this->data = data;
 }

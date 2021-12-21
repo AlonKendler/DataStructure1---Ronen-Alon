@@ -3,7 +3,7 @@
 template class heap<int>;
 
 template<class T>
-TreeNode<T>* heap<T>::Insert(const T& data, TreeNode<T>* twin)
+TreeNode<T>* heap<T>::Insert(T* data, TreeNode<T>* twin)
 {
     TreeNode<T>* finalPos = new TreeNode<T>();
     finalPos->setData(data);
@@ -123,11 +123,11 @@ TreeNode<T>* heap<T>::heapifyDown(TreeNode<T>* node)
         if(node->getLeft())
         {
             TreeNode<T>* max = node;
-            if(compare(node->getLeft()->getData(),node->getData()))
+            if(compare(*(node->getLeft()->getData()),*(node->getData())))
             {
                 max=node->getLeft();
             }
-            if(node->getRight() && compare(node->getRight()->getData(),max->getData()))
+            if(node->getRight() && compare(*(node->getRight()->getData()),*(max->getData())))
             {
                 max=node->getRight();
             }
@@ -206,7 +206,7 @@ TreeNode<T>* heap<T>::heapifyUp(TreeNode<T>* node)
             TreeNode<T>* next=node->getParent();
             TreeNode<T>* curr=node;
 
-            while (next && compare(curr->getData(), next->getData()))
+            while (next && compare(*(curr->getData()), *(next->getData())))
             {
                 TreeNode<T> *temp=next->getParent();
                 curr->setParent(temp);
@@ -261,7 +261,7 @@ void heap<T>::print() const
 template <typename T>
 const T& heap<T>::Top() const
 {
-    return head->getData();
+    return *(head->getData());
 }
 
 template <typename T>

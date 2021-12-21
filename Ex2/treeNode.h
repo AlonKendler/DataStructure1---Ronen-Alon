@@ -7,7 +7,7 @@ template<typename T>
 class TreeNode 
 {
 private:
-    T data;
+    T* data;
     TreeNode<T> *left;
     TreeNode<T> *right;
     TreeNode<T> *parent;
@@ -21,12 +21,12 @@ public:
     TreeNode<T>* getRight() const;
     TreeNode<T>* getParent();
     TreeNode<T>* getTwin();
-    const T& getData() const;
+    T* getData() const;
 
 
     void setLeft(TreeNode<T>* const left);
     void setRight(TreeNode<T>* const right);
-    void setData(const T& data);
+    void setData(T* data);
     void setParent(TreeNode<T>* const parent);
     void setTwin(TreeNode<T>* const parent);
     void print() const;

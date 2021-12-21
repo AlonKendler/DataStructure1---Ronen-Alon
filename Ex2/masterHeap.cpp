@@ -32,11 +32,11 @@ template <typename T> const T& masterHeap<T>::deleteMax()
     if(highItemCount!=0)
     {
         TreeNode<T>* removed = highMaxHeap->deleteTop();
-        T* data = new T(removed->getData());
+        const T& data = *(removed->getData());
         delete removed;
         highItemCount--;
         rebalance();
-        return *data;
+        return data;
     }
     else
     {
@@ -79,10 +79,10 @@ template <typename T> const T& masterHeap<T>::deleteMin()
             lowItemCount--;
         }
         
-        T* data = new T(removed->getData());
+        const T& data = *(removed->getData());
         delete removed;
         rebalance();
-        return *data;
+        return data;
 
     }
     else
@@ -111,10 +111,10 @@ template <typename T> const T& masterHeap<T>::median()
     }
 }
 
-template <typename T> void masterHeap<T>::insert(const T& val)
+template <typename T> void masterHeap<T>::insert(T& val)
 {
-    TreeNode<T>* inserted= highMaxHeap->Insert(val, nullptr);
-    highMinHeap->Insert(val, inserted);
+    TreeNode<T>* inserted= highMaxHeap->Insert(&val, nullptr);
+    highMinHeap->Insert(&val, inserted);
 
     highItemCount++;
     rebalance();    

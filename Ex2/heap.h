@@ -29,7 +29,7 @@ public:
     heap(bool max, heap<T>* bro): maxHeap(max), head(nullptr), tail(nullptr) , itemCount(0), bro(bro) {}
 
 
-    TreeNode<T>* Insert(const T& data, TreeNode<T>* twin);
+    TreeNode<T>* Insert(T* data, TreeNode<T>* twin);
     const T& Top() const;
     void print() const;
     TreeNode<T>* deleteTop();

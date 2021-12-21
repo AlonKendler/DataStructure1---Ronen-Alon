@@ -15,9 +15,9 @@ int main()
     master->CreateEmpty();
     for(int i=0;i<N;i++)
     {
-        int t;
-        cin >> t;
-        master->insert(t);
+        int *t = new int();
+        cin >> *t;
+        master->insert(*t);
     }
 
     cout << master->deleteMax() << '\n';
