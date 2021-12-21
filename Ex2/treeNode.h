@@ -3,9 +3,6 @@
 using std::ostream;
 using std::cout;
 
-/* template<class T> class TreeNode;
-template<class T> ostream& operator<<(ostream& cout, TreeNode<T>* h);
- */
 template<typename T>
 class TreeNode 
 {

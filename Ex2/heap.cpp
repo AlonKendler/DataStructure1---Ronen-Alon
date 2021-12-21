@@ -300,7 +300,7 @@ TreeNode<T>* heap<T>::deleteTop()
             head->setLeft(top->getLeft());
             head->setRight(top->getRight());
 
-            TreeNode<T>* finalPos=heapifyDown(head);
+            heapifyDown(head);
 
             if(head->getParent())
             {
@@ -311,7 +311,14 @@ TreeNode<T>* heap<T>::deleteTop()
             }
             if(tail->getLeft())
             {
-                tail=finalPos;
+                if(tail->getRight())
+                {
+                    tail=tail->getRight();
+                }
+                else
+                {
+                    tail=tail->getLeft();
+                }
             }
         }
     }
@@ -388,7 +395,10 @@ void heap<T>::remove(TreeNode<T>* remove)
             }
             if(newTail==twin)
             {
-                tail=parent;
+                if(!parent->getLeft())
+                {
+                    tail=parent;
+                }
             }
             else
             {

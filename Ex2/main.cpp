@@ -1,6 +1,5 @@
 #include <iostream>
-//#include "heap.h"
-#include "heap.h"
+#include "masterHeap.h"
 
 using std::cin;
 using std::cout;
@@ -11,14 +10,22 @@ int main()
     cout << "enter number of values" << "\n";
     cin >> N;
 
-    heap<int>* maxHeap = new heap<int>(nullptr);
-    heap<int>* minHeap = new heap<int>(false, maxHeap);
-    maxHeap->setBro(minHeap);
+    masterHeap<int>* master=new masterHeap<int>();
+
+    master->CreateEmpty();
     for(int i=0;i<N;i++)
     {
         int t;
         cin >> t;
-        TreeNode<int>* res=maxHeap->Insert(t, nullptr);
-        minHeap->Insert(t, res);
+        master->insert(t);
     }
+
+    cout << master->deleteMax() << '\n';
+
+    cout << master->median() << '\n';
+
+    cout << master->min() << "max: " << master->max() << '\n';
+
+    cout << master->deleteMin() << '\n';
+
 }
