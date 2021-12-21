@@ -21,21 +21,4 @@ int main()
         TreeNode<int>* res=maxHeap->Insert(t, nullptr);
         minHeap->Insert(t, res);
     }
-
-    for(int i=0;i<N;i++)
-    {
-        maxHeap->print();
-        minHeap->print();
-
-        TreeNode<int>* max = maxHeap->deleteTop();
-        TreeNode<int>* min = minHeap->deleteTop();
-
-        maxHeap->print();
-        minHeap->print();
-        
-        cout << "max is: " << max->getData() << '\n';
-        cout << "min is " << min->getData() << '\n';
-        delete max;
-        delete min;
-    }
 }

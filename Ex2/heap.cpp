@@ -333,7 +333,78 @@ TreeNode<T>* heap<T>::deleteTop()
 template <typename T>
 void heap<T>::remove(TreeNode<T>* remove)
 {
+    if(remove && remove->getTwin())
+    {
+        TreeNode<T>* twin = remove->getTwin();
+        TreeNode<T>* newTail=getPrevTail();
 
+        if(tail->getParent())
+        {
+            TreeNode<T>* parent =nullptr;
+            if(twin==tail)
+            {
+                if(tail->getParent()->getRight()==tail)
+                {
+                    tail->getParent()->setRight(nullptr);
+                }
+                else
+                {
+                    tail->getParent()->setLeft(nullptr);
+                }
+            }
+            else
+            {
+                if(tail->getParent()->getRight()==tail)
+                {
+                    tail->getParent()->setRight(nullptr);
+                }
+                else
+                {
+                    tail->getParent()->setLeft(nullptr);
+                }
+
+                tail->setParent(twin->getParent());
+                if(tail->getParent()->getRight()==twin)
+                {
+                    tail->getParent()->setRight(tail);
+                }
+                else
+                {
+                    tail->getParent()->setLeft(tail);
+                }
+                tail->setLeft(twin->getLeft());
+                tail->setRight(twin->getRight());
+
+                parent = tail->getParent();
+                tail = heapifyUp(tail);
+                if(tail->getParent()==parent)
+                {
+                    heapifyDown(tail);
+                }
+                else
+                {
+                    heapifyDown(parent);
+                }
+            }
+            if(newTail==twin)
+            {
+                tail=parent;
+            }
+            else
+            {
+                tail=newTail;
+            }
+        }
+        else
+        {
+            head=nullptr;
+            tail=nullptr;
+        }
+        
+        delete twin;
+        itemCount--;
+
+    }
 }
 
 template <class T>
@@ -397,4 +468,10 @@ template <class T>
 void heap<T>::setBro(heap<T>* bro)
 {
     this->bro=bro;
+}
+
+template <typename T>
+int heap<T>::getItemCount() const
+{
+    return itemCount;
 }

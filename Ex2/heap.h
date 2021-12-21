@@ -34,4 +34,5 @@ public:
     void print() const;
     TreeNode<T>* deleteTop();
     void setBro(heap<T>* bro);
+    int getItemCount() const;
 };
