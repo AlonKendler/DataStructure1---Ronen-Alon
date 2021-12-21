@@ -14,13 +14,16 @@ private:
     TreeNode<T> *left;
     TreeNode<T> *right;
     TreeNode<T> *parent;
+    TreeNode<T> *twin;
 public:
-    TreeNode(): left(nullptr), right(nullptr), parent(nullptr) {}
-    TreeNode(TreeNode<T> *left, TreeNode<T> *right): left(left), right(right), parent(nullptr) {}
+    TreeNode(): left(nullptr), right(nullptr), parent(nullptr), twin(nullptr) {}
+    TreeNode(TreeNode<T> *twin): left(nullptr), right(nullptr), parent(nullptr), twin(twin) {}
+    TreeNode(TreeNode<T> *left, TreeNode<T> *right): left(left), right(right), parent(nullptr), twin(nullptr) {}
     
     TreeNode<T>* getLeft() const;
     TreeNode<T>* getRight() const;
-    const TreeNode<T>* getParent() const;
+    TreeNode<T>* getParent();
+    TreeNode<T>* getTwin();
     const T& getData() const;
 
 
@@ -28,7 +31,7 @@ public:
     void setRight(TreeNode<T>* const right);
     void setData(const T& data);
     void setParent(TreeNode<T>* const parent);
+    void setTwin(TreeNode<T>* const parent);
     void print() const;
-    
-    bool operator<(TreeNode<T>* t1) const;
+    void printInOrder() const;
 };

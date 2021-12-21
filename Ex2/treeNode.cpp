@@ -11,7 +11,7 @@ TreeNode<T>* TreeNode<T>::getLeft() const
 template<class T>
 void TreeNode<T>::print() const
 {
-    cout << data;
+    cout << data << ' ';
     if(left)
     {
         left->print();
@@ -20,9 +20,21 @@ void TreeNode<T>::print() const
     {
         right->print();
     }
-    cout << "\n";
 }
 
+template<class T>
+void TreeNode<T>::printInOrder() const
+{
+    if(left)
+    {
+        left->printInOrder();
+    }
+    cout << data << ' ';
+    if(right)
+    {
+        right->printInOrder();
+    }
+}
 
 template<class T>
 TreeNode<T>* TreeNode<T>::getRight() const
@@ -37,9 +49,15 @@ const T& TreeNode<T>::getData() const
 }
 
 template<class T>
-const TreeNode<T>* TreeNode<T>::getParent() const
+TreeNode<T>* TreeNode<T>::getParent()
 {
     return parent;
+}
+
+template<class T>
+TreeNode<T>* TreeNode<T>::getTwin()
+{
+    return twin;
 }
 
 template<class T>
@@ -71,7 +89,7 @@ void TreeNode<T>::setParent(TreeNode<T>* const parent)
 }
 
 template<class T>
-bool TreeNode<T>::operator<(TreeNode<T>* t1) const
+void TreeNode<T>::setTwin(TreeNode<T>* const twin)
 {
-    return this->data<t1->data;
+    this->twin = twin;
 }

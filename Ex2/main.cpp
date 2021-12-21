@@ -1,6 +1,6 @@
 #include <iostream>
 //#include "heap.h"
-#include "treeNode.h"
+#include "heap.h"
 
 using std::cin;
 using std::cout;
@@ -11,25 +11,31 @@ int main()
     cout << "enter number of values" << "\n";
     cin >> N;
 
-    TreeNode<int>* head=nullptr;
-    TreeNode<int>* current = nullptr;
-
+    heap<int>* maxHeap = new heap<int>(nullptr);
+    heap<int>* minHeap = new heap<int>(false, maxHeap);
+    maxHeap->setBro(minHeap);
     for(int i=0;i<N;i++)
     {
         int t;
         cin >> t;
-        if(head)
-        {
-            current->setLeft(new TreeNode<int>());
-            current=current->getLeft();
-            current->setData(t);
-        }
-        else
-        {
-            head = new TreeNode<int>();
-            head->setData(t);
-            current=head;
-        }
+        TreeNode<int>* res=maxHeap->Insert(t, nullptr);
+        minHeap->Insert(t, res);
     }
-    head->print();
+
+    for(int i=0;i<N;i++)
+    {
+        maxHeap->print();
+        minHeap->print();
+
+        TreeNode<int>* max = maxHeap->deleteTop();
+        TreeNode<int>* min = minHeap->deleteTop();
+
+        maxHeap->print();
+        minHeap->print();
+        
+        cout << "max is: " << max->getData() << '\n';
+        cout << "min is " << min->getData() << '\n';
+        delete max;
+        delete min;
+    }
 }
