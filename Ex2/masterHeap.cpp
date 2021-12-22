@@ -165,3 +165,9 @@ template <typename T> void masterHeap<T>::rebalance()
         lowItemCount++;
     }
 }
+
+template <typename T> 
+int masterHeap<T>::getItemCount()
+{
+    return lowItemCount+highItemCount;
+}

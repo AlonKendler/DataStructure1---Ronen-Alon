@@ -12,17 +12,7 @@ int main()
         switch (getAction())
         {
         case Action::aMax:
-            if(reset)
-            {
-                const int& val = master->max();
-                cout << val << '\n';
-                cin.ignore(10000,'\n');
-            }
-            else
-            {
-                cout << "no\n";
-                cin.ignore(10000,'\n');
-            }
+            maxWarapper(reset, master);
             break;
         case Action::bDeleteMax:
             if(reset)
@@ -137,3 +127,46 @@ Action getAction()
         break;
     }
 }
+
+bool maxWarapper(bool reset, masterHeap<int>* master)
+{
+    if(reset)
+    {
+        if(master->getItemCount()>0)
+        {
+            const int& val = master->max();
+            cout << val << '\n';
+            cin.ignore(10000,'\n');
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool deleteMaxWarapper(bool reset, masterHeap<int>* master)
+{
+    
+}
+
+bool minWarapper(bool reset, masterHeap<int>* master)
+{
+
+}
+
+bool deleteMinWarapper(bool reset, masterHeap<int>* master)
+{
+
+}
+
+bool insertWarapper(bool reset, masterHeap<int>* master)
+{
+
+}
+
+bool medianWarapper(bool reset, masterHeap<int>* master)
+{
+
+}
+
+

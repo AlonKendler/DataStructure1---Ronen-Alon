@@ -23,5 +23,6 @@ public:
     const T& deleteMin();
     const T& median();
     void insert(T& val);
+    int getItemCount();
     
 };
