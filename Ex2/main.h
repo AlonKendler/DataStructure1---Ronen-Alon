@@ -17,7 +17,7 @@ enum class Action
     notValid
 };
 
-Action getAction();
+Action getAction(bool& error);
 bool maxWarapper(bool reset, masterHeap<pair>* master);
 bool deleteMaxWarapper(bool reset, masterHeap<pair>* master);
 bool minWarapper(bool reset, masterHeap<pair>* master);

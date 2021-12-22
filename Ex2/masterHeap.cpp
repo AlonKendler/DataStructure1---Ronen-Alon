@@ -15,6 +15,36 @@ template <typename T> void masterHeap<T>::CreateEmpty()
     highItemCount=lowItemCount=0;
 }
 
+template <typename T> masterHeap<T>::~masterHeap()
+{
+    while (getItemCount()>0)
+    {
+        const T& val = deleteMax();
+        delete &val;
+    }
+
+    if(lowMaxHeap)
+    {
+        delete lowMaxHeap;
+    }
+
+    if(lowMinHeap)
+    {
+        delete lowMinHeap;
+    }
+    
+    if(highMaxHeap)
+    {
+        delete highMaxHeap;
+    }
+
+    if(highMinHeap)
+    {
+        delete highMinHeap;
+    }
+
+}
+
 template <typename T> const T& masterHeap<T>::max()
 {
     if(highItemCount!=0)

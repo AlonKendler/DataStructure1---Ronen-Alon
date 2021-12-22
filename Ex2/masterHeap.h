@@ -16,6 +16,7 @@ private:
 
 public:
     masterHeap(): highMaxHeap(nullptr), highMinHeap(nullptr), highItemCount(0) ,lowMaxHeap(nullptr), lowMinHeap(nullptr), lowItemCount(0){}
+    ~masterHeap();
     void CreateEmpty();
     const T& max();
     const T& deleteMax();
