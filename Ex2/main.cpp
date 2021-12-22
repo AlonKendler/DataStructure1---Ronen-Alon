@@ -4,32 +4,21 @@ int main()
 {
     int N;
     cin >> N;
-    masterHeap<int>* master=new masterHeap<int>();
+    masterHeap<pair>* master=new masterHeap<pair>();
     bool reset = false;
-    int * pr=nullptr;
+    bool error = false;
     for(int i=0;i<N;i++)
     {
         switch (getAction())
         {
         case Action::aMax:
-            maxWarapper(reset, master);
+            error = maxWarapper(reset, master);
             break;
         case Action::bDeleteMax:
-            if(reset)
-            {
-                const int& val = master->deleteMax();
-                cout << val << '\n';
-                delete &val;
-                cin.ignore(10000,'\n');
-            }
-            else
-            {
-                cout << "no\n";
-                cin.ignore(10000,'\n');
-            }
+            
             break;
         case Action::cMin:
-            if(reset)
+            /* if(reset)
             {
                 const int& val = master->min();
                 cout << val << '\n';
@@ -39,10 +28,10 @@ int main()
             {
                 cout << "no\n";
                 cin.ignore(10000,'\n');
-            }
+            } */
             break;
         case Action::dDeleteMin:
-            if(reset)
+            /* if(reset)
             {
                 const int& val = master->deleteMin();
                 cout << val << '\n';
@@ -53,7 +42,7 @@ int main()
             {
                 cout << "no\n";
                 cin.ignore(10000,'\n');
-            }
+            } */
             break;
         case Action::eCreateEmpty:
             cin.ignore(10000,'\n');
@@ -61,21 +50,10 @@ int main()
             reset = true;
             break;
         case Action::fInsert:
-            if(reset)
-            {
-                pr = new int();
-                cin >> *pr;
-                cin.ignore(10000,'\n');
-                master->insert(*pr);
-            }
-            else
-            {
-                cout << "no\n";
-                cin.ignore(10000,'\n');
-            }
+            error = insertWarapper(reset, master);
             break;
         case Action::gMedian:
-            if(reset)
+            /* if(reset)
             {
                 const int& val = master->median();
                 cout << val << '\n';
@@ -85,12 +63,19 @@ int main()
             {
                 cout << "no\n";
                 cin.ignore(10000,'\n');
-            }
+            } */
             break;
         default:
             cout <<"bad\n";
             break;
         }
+
+        if(error)
+        {
+            cout << "wrong input";
+            i=N;
+        }
+
     }
 
 }
@@ -128,45 +113,75 @@ Action getAction()
     }
 }
 
-bool maxWarapper(bool reset, masterHeap<int>* master)
+bool maxWarapper(bool reset, masterHeap<pair>* master)
 {
     if(reset)
     {
         if(master->getItemCount()>0)
         {
-            const int& val = master->max();
-            cout << val << '\n';
+            const pair& val = master->max();
+            cout << val.getKey() << val.getValue() << '\n';
             cin.ignore(10000,'\n');
-            return true;
+            return false;
         }
     }
 
+    return true;
+}
+
+bool deleteMaxWarapper(bool reset, masterHeap<pair>* master)
+{
+    /* if(reset)
+    {
+        const pair& val = master->deleteMax();
+        cout << val << '\n';
+        delete &val;
+        cin.ignore(10000,'\n');
+    } */
     return false;
 }
 
-bool deleteMaxWarapper(bool reset, masterHeap<int>* master)
+bool minWarapper(bool reset, masterHeap<pair>* master)
 {
-    
+    return false;
 }
 
-bool minWarapper(bool reset, masterHeap<int>* master)
+bool deleteMinWarapper(bool reset, masterHeap<pair>* master)
 {
-
+    return false;
 }
 
-bool deleteMinWarapper(bool reset, masterHeap<int>* master)
+bool insertWarapper(bool reset, masterHeap<pair>* master)
 {
+    pair *add = nullptr;
 
+    string s;
+    int priority=0;
+
+    if(reset)
+    {
+        if(cin >> priority)
+        {
+            if(cin.get())
+            {
+                cin >> s;
+                cin.ignore(10000,'\n');
+
+                add = new pair(priority,s);
+
+                master->insert(*add);
+                return false;
+
+            }
+        }
+    }
+
+    return true;
 }
 
-bool insertWarapper(bool reset, masterHeap<int>* master)
+bool medianWarapper(bool reset, masterHeap<pair>* master)
 {
-
-}
-
-bool medianWarapper(bool reset, masterHeap<int>* master)
-{
-
+    return false;
 }
 
 

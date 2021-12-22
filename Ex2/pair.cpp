@@ -21,3 +21,9 @@ void pair::setValue(int key)
 {
     this->value = key;
 }
+
+bool pair::operator>(const pair& p2) const
+{
+    return this->getKey()>p2.getKey();
+}
+

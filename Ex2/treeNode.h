@@ -1,4 +1,5 @@
 #include <iostream>
+#include "pair.h"
 
 using std::ostream;
 using std::cout;

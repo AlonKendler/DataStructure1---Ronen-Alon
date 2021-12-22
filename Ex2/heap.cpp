@@ -1,6 +1,6 @@
 #include "heap.h"
 
-template class heap<int>;
+template class heap<pair>;
 
 template<class T>
 TreeNode<T>* heap<T>::Insert(T* data, TreeNode<T>* twin)

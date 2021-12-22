@@ -1,6 +1,6 @@
 #include "treeNode.h"
 
-template class TreeNode<int>;
+template class TreeNode<pair>;
 
 template<class T>
 TreeNode<T>* TreeNode<T>::getLeft() const

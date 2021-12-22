@@ -1,15 +1,15 @@
 #include "masterHeap.h"
 
-template class masterHeap<int>;
+template class masterHeap<pair>;
 
 template <typename T> void masterHeap<T>::CreateEmpty()
 {
-    highMaxHeap = new heap<int>(nullptr);
-    highMinHeap = new heap<int>(false, highMaxHeap);
+    highMaxHeap = new heap<T>(nullptr);
+    highMinHeap = new heap<T>(false, highMaxHeap);
     highMaxHeap->setBro(highMinHeap);
 
-    lowMaxHeap = new heap<int>(nullptr);
-    lowMinHeap = new heap<int>(false, lowMaxHeap);
+    lowMaxHeap = new heap<T>(nullptr);
+    lowMinHeap = new heap<T>(false, lowMaxHeap);
     lowMaxHeap->setBro(lowMinHeap);
 
     highItemCount=lowItemCount=0;
