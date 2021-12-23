@@ -2,14 +2,26 @@
 
 template class masterHeap<pair>;
 
-template <typename T> void masterHeap<T>::CreateEmpty()
+template <typename T> void masterHeap<T>::CreateEmpty(int maxSize)
 {
-    highMaxHeap = new heap<T>(nullptr);
-    highMinHeap = new heap<T>(false, highMaxHeap);
+    int highCapacity=0, lowCapacity=0;
+    if(maxSize%2==0)
+    {
+        highCapacity=maxSize/2+1;
+        lowCapacity=maxSize/2;
+    }
+    else
+    {
+        highCapacity=maxSize/2+1;
+        lowCapacity=maxSize/2;
+    }
+
+    highMaxHeap = new heap<T>(nullptr,highCapacity);
+    highMinHeap = new heap<T>(false, highMaxHeap,highCapacity);
     highMaxHeap->setBro(highMinHeap);
 
-    lowMaxHeap = new heap<T>(nullptr);
-    lowMinHeap = new heap<T>(false, lowMaxHeap);
+    lowMaxHeap = new heap<T>(nullptr,lowCapacity);
+    lowMinHeap = new heap<T>(false, lowMaxHeap,lowCapacity);
     lowMaxHeap->setBro(lowMinHeap);
 
     highItemCount=lowItemCount=0;
@@ -17,10 +29,11 @@ template <typename T> void masterHeap<T>::CreateEmpty()
 
 template <typename T> masterHeap<T>::~masterHeap()
 {
-    while (getItemCount()>0)
+
+    while(getItemCount()>0)
     {
-        const T& val = deleteMax();
-        delete &val;
+        const T* val = deleteMax();
+        delete val;
     }
 
     if(lowMaxHeap)
@@ -45,36 +58,28 @@ template <typename T> masterHeap<T>::~masterHeap()
 
 }
 
-template <typename T> const T& masterHeap<T>::max()
+template <typename T> const T* masterHeap<T>::max()
 {
     if(highItemCount!=0)
     {
         return highMaxHeap->Top();
     }
-    else
-    {
-        throw std::out_of_range("empty heap");
-    }
+    return nullptr;
 }
 
-template <typename T> const T& masterHeap<T>::deleteMax()
+template <typename T> const T* masterHeap<T>::deleteMax()
 {
     if(highItemCount!=0)
     {
-        TreeNode<T>* removed = highMaxHeap->deleteTop();
-        const T& data = *(removed->getData());
-        delete removed;
+        const T* data = highMaxHeap->deleteTop();
         highItemCount--;
         rebalance();
         return data;
     }
-    else
-    {
-        throw std::out_of_range("empty heap");
-    }
+    return nullptr;
 }
 
-template <typename T> const T& masterHeap<T>::min()
+template <typename T> const T* masterHeap<T>::min()
 {
     if(highItemCount!=0)
     {
@@ -87,17 +92,14 @@ template <typename T> const T& masterHeap<T>::min()
             return lowMinHeap->Top();
         }
     }
-    else
-    {
-        throw std::out_of_range("empty heap");
-    }
+    return nullptr;
 }
 
-template <typename T> const T& masterHeap<T>::deleteMin()
+template <typename T> const T* masterHeap<T>::deleteMin()
 {
     if(highItemCount!=0)
     {
-        TreeNode<T>* removed = nullptr;
+        const T* removed = nullptr;
         if(lowItemCount==0)
         {
             removed = highMinHeap->deleteTop();
@@ -108,20 +110,14 @@ template <typename T> const T& masterHeap<T>::deleteMin()
             removed = lowMinHeap->deleteTop();
             lowItemCount--;
         }
-        
-        const T& data = *(removed->getData());
-        delete removed;
         rebalance();
-        return data;
+        return removed;
+    }
 
-    }
-    else
-    {
-        throw std::out_of_range("empty heap");
-    }
+    return nullptr;
 }
 
-template <typename T> const T& masterHeap<T>::median()
+template <typename T> const T* masterHeap<T>::median()
 {
     if(highItemCount!=0)
     {
@@ -135,15 +131,13 @@ template <typename T> const T& masterHeap<T>::median()
         }
 
     }
-    else
-    {
-        throw std::out_of_range("empty heap");
-    }
+
+    return nullptr;
 }
 
 template <typename T> void masterHeap<T>::insert(T& val)
 {
-    TreeNode<T>* inserted= highMaxHeap->Insert(&val, nullptr);
+    int inserted= highMaxHeap->Insert(&val, -1);
     highMinHeap->Insert(&val, inserted);
 
     highItemCount++;
@@ -156,21 +150,18 @@ template <typename T> void masterHeap<T>::rebalance()
     {
         if(lowItemCount!=0)
         {
-            const T& minHigh = highMinHeap->Top();
-            const T& maxLow = lowMaxHeap->Top();
-            if(maxLow > minHigh)
+            const T* minHigh = highMinHeap->Top();
+            const T* maxLow = lowMaxHeap->Top();
+            if(*maxLow > *minHigh)
             {
-                TreeNode<T>* min = highMinHeap->deleteTop();
-                TreeNode<T>* max = lowMaxHeap->deleteTop();
+                const T* min = highMinHeap->deleteTop();
+                const T* max = lowMaxHeap->deleteTop();
 
-                TreeNode<T>* inserted = highMaxHeap->Insert(max->getData(), nullptr);
-                highMinHeap->Insert(max->getData(), inserted);
+                int inserted = highMaxHeap->Insert(max, -1);
+                highMinHeap->Insert(max, inserted);
 
-                inserted = lowMinHeap->Insert(min->getData(), nullptr);
-                lowMaxHeap->Insert(min->getData(), inserted);
-
-                delete min;
-                delete max;
+                inserted = lowMinHeap->Insert(min, -1);
+                lowMaxHeap->Insert(min, inserted);
             }
         }
     }
@@ -180,24 +171,23 @@ template <typename T> void masterHeap<T>::rebalance()
     }
     else if(highItemCount+1==lowItemCount)
     {
-        TreeNode<T>* max = lowMaxHeap->deleteTop();
-        TreeNode<T>* inserted = highMinHeap->Insert(max->getData(), nullptr);
-        highMaxHeap->Insert(max->getData(), inserted);
+        const T* max = lowMaxHeap->deleteTop();
+        int inserted = highMinHeap->Insert(max, -1);
+        highMaxHeap->Insert(max, inserted);
         highItemCount++;
         lowItemCount--;
     }
     else
     {
-        TreeNode<T>* min = highMinHeap->deleteTop();
-        TreeNode<T>* inserted = lowMinHeap->Insert(min->getData(), nullptr);
-        lowMaxHeap->Insert(min->getData(), inserted);
+        const T* min = highMinHeap->deleteTop();
+        int inserted = lowMinHeap->Insert(min, -1);
+        lowMaxHeap->Insert(min, inserted);
         highItemCount--;
         lowItemCount++;
     }
 }
 
-template <typename T> 
-int masterHeap<T>::getItemCount()
+template <typename T> int masterHeap<T>::getItemCount()
 {
     return lowItemCount+highItemCount;
 }

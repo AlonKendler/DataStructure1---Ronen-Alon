@@ -1,5 +1,5 @@
 #include <iostream>
-#include "treeNode.h"
+#include "heapItem.h"
 
 using std::ostream;
 
@@ -11,28 +11,27 @@ class heap
 {
 private:
     bool maxHeap;
-    TreeNode<T>* head;
-    TreeNode<T>* tail;
+    heapItem<T>* arr;
     int itemCount;
     heap<T>* bro;
+    int maxCapacity;
 
-    TreeNode<T>* getNextFreeParent();
-    TreeNode<T>* heapifyDown(TreeNode<T>* node);
-    TreeNode<T>* heapifyUp(TreeNode<T>* node);
-    TreeNode<T>* getPrevTail();
-    bool compare(const T& t1, const T& t2);
-    void remove(TreeNode<T>* remove);
+    int heapifyDown(int node);
+    int heapifyUp(int node);
+    bool compare(const T* t1, const T* t2);
+    void remove(int remove);
+
 public:
-    heap(): maxHeap(true) ,head(nullptr), tail(nullptr) , itemCount(0), bro(nullptr) {}
-    heap(bool max): maxHeap(max), head(nullptr), tail(nullptr) , itemCount(0), bro(nullptr) {}
-    heap(heap<T>* bro): maxHeap(true) ,head(nullptr), tail(nullptr) , itemCount(0), bro(bro) {}
-    heap(bool max, heap<T>* bro): maxHeap(max), head(nullptr), tail(nullptr) , itemCount(0), bro(bro) {}
+    heap(int maxCapacity);
+    heap(bool max, int maxCapacity);
+    heap(heap<T>* bro, int maxCapacity);
+    heap(bool  max, heap<T>* bro, int maxCapacity);
+    ~heap();
 
-
-    TreeNode<T>* Insert(T* data, TreeNode<T>* twin);
-    const T& Top() const;
-    void print() const;
-    TreeNode<T>* deleteTop();
+    int Insert(const T* data, int twin);
+    const T* Top() const;
+    const T* deleteTop();
     void setBro(heap<T>* bro);
     int getItemCount() const;
+    void setTwin(int node, int twinIndex);
 };

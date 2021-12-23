@@ -32,7 +32,7 @@ int main()
                 if(!reset)
                 {
                     cin.ignore(10000,'\n');
-                    master->CreateEmpty();
+                    master->CreateEmpty(N);
                     reset = true;
                 }
                 else
@@ -115,8 +115,8 @@ bool maxWarapper(bool reset, masterHeap<pair>* master)
     {
         if(master->getItemCount()>0)
         {
-            const pair& val = master->max();
-            cout << val.getKey() << " " << val.getValue() << '\n';
+            const pair* val = master->max();
+            cout << val->getKey() << " " << val->getValue() << '\n';
             cin.ignore(10000,'\n');
             return false;
         }
@@ -131,9 +131,9 @@ bool deleteMaxWarapper(bool reset, masterHeap<pair>* master)
     {
         if(master->getItemCount()>0)
         {
-            const pair& val = master->deleteMax();
-            cout << val.getKey() << " " << val.getValue() << '\n';
-            delete &val;
+            const pair* val = master->deleteMax();
+            cout << val->getKey() << " " << val->getValue() << '\n';
+            delete val;
             cin.ignore(10000,'\n');
             return false;
         }
@@ -147,8 +147,8 @@ bool minWarapper(bool reset, masterHeap<pair>* master)
     {
         if(master->getItemCount()>0)
         {
-            const pair& val = master->min();
-            cout << val.getKey() << " " << val.getValue() << '\n';
+            const pair* val = master->min();
+            cout << val->getKey() << " " << val->getValue() << '\n';
             cin.ignore(10000,'\n');
             return false;
         }
@@ -162,9 +162,9 @@ bool deleteMinWarapper(bool reset, masterHeap<pair>* master)
     {
         if(master->getItemCount()>0)
         {
-            const pair& val = master->deleteMin();
-            cout << val.getKey() << " " << val.getValue() << '\n';
-            delete &val;
+            const pair* val = master->deleteMin();
+            cout << val->getKey() << " " << val->getValue() << '\n';
+            delete val;
             cin.ignore(10000,'\n');
             return false;
         }
@@ -205,8 +205,8 @@ bool medianWarapper(bool reset, masterHeap<pair>* master)
     {
         if(master->getItemCount()>0)
         {
-            const pair& val = master->median();
-            cout << val.getKey() << " " << val.getValue() << '\n';
+            const pair* val = master->median();
+            cout << val->getKey() << " " << val->getValue() << '\n';
             cin.ignore(10000,'\n');
             return false;
         }

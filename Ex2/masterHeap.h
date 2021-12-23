@@ -1,5 +1,4 @@
 #include "heap.h"
-#include <stdexcept>
 
 template <typename T>
 class masterHeap
@@ -17,12 +16,12 @@ private:
 public:
     masterHeap(): highMaxHeap(nullptr), highMinHeap(nullptr), highItemCount(0) ,lowMaxHeap(nullptr), lowMinHeap(nullptr), lowItemCount(0){}
     ~masterHeap();
-    void CreateEmpty();
-    const T& max();
-    const T& deleteMax();
-    const T& min();
-    const T& deleteMin();
-    const T& median();
+    void CreateEmpty(int maxSize);
+    const T* max();
+    const T* deleteMax();
+    const T* min();
+    const T* deleteMin();
+    const T* median();
     void insert(T& val);
     int getItemCount();
     
