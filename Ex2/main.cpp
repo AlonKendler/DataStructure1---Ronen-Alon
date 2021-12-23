@@ -3,15 +3,15 @@
 int main()
 {
     int N;
-    masterHeap<pair>* master=new masterHeap<pair>();
-    bool reset = false;
-    bool error = false;
-    Action res;
+    masterHeap<pair>* master=new masterHeap<pair>();// the main data structure
+    bool reset = false;// checks if the structure was reset before use
+    bool error = false;// a central error flag to make error handling simple
+    Action res;// the action inserted
     
     cin >> N;
     for(int i=0;i<N;i++)
     {
-        res=getAction(error); 
+        res=getAction(error);// get input while checking the command is valid 
         if(!error)
         {
             switch (res)
@@ -29,9 +29,9 @@ int main()
                 error = deleteMinWarapper(reset, master);
                 break;
             case Action::eCreateEmpty:
-                if(!reset)
+                if(!reset) // the structure should only be reset once according to requirments (input4e.txt is the example to this)
                 {
-                    cin.ignore(10000,'\n');
+                    cin.ignore(10000,'\n');// ignore any other string after an e command till line feed
                     master->CreateEmpty(N);
                     reset = true;
                 }
@@ -52,7 +52,7 @@ int main()
             }
         }
 
-        if(error)
+        if(error)// central error handling while clearing all memmory
         {
             cout << "wrong input\n";
             i=N;
@@ -62,13 +62,20 @@ int main()
 
     delete master;
 
-    if(N<=0)
+    if(N<=0)// special case when N is negetive. (the flag isn't updated in this case)
     {
         cout << "wrong input\n";
     }
 
 }
 
+
+/**
+ * @brief Get input and convert to an action
+ * 
+ * @param error - will be set to true if input isn't a valid command
+ * @return Action - the action to preform
+ */
 Action getAction(bool& error)
 {
     char a;
@@ -99,6 +106,7 @@ Action getAction(bool& error)
             break;
         default:
             return Action::notValid;
+            error=true;
             break;
         }
     }
@@ -109,6 +117,14 @@ Action getAction(bool& error)
     }
 }
 
+/**
+ * @brief a simple error checking for structure's max function
+ * 
+ * @param reset - was the structure reset?
+ * @param master - the structure
+ * @return true - if an error happend
+ * @return false - all good :)
+ */
 bool maxWarapper(bool reset, masterHeap<pair>* master)
 {
     if(reset)
@@ -125,6 +141,14 @@ bool maxWarapper(bool reset, masterHeap<pair>* master)
     return true;
 }
 
+/**
+ * @brief same as maxWrapper except it uses deleteMax and frees the removed element
+ * 
+ * @param reset - was the structure reset?
+ * @param master - the structure
+ * @return true - if an error happend
+ * @return false - all good :)
+ */
 bool deleteMaxWarapper(bool reset, masterHeap<pair>* master)
 {
     if(reset)
@@ -141,6 +165,14 @@ bool deleteMaxWarapper(bool reset, masterHeap<pair>* master)
     return true;
 }
 
+/**
+ * @brief a simple error checking for structure's min function
+ * 
+ * @param reset - was the structure reset?
+ * @param master - the structure
+ * @return true - if an error happend
+ * @return false - all good :)
+ */
 bool minWarapper(bool reset, masterHeap<pair>* master)
 {
     if(reset)
@@ -156,6 +188,14 @@ bool minWarapper(bool reset, masterHeap<pair>* master)
     return true;
 }
 
+/**
+ * @brief same as minWrapper except it uses deleteMin and frees the removed element
+ * 
+ * @param reset - was the structure reset?
+ * @param master - the structure
+ * @return true - if an error happend
+ * @return false - all good :)
+ */
 bool deleteMinWarapper(bool reset, masterHeap<pair>* master)
 {
     if(reset)
@@ -172,6 +212,15 @@ bool deleteMinWarapper(bool reset, masterHeap<pair>* master)
     return true;
 }
 
+/**
+ * @brief this wrapper allocates the inputed pair of priority and string 
+ * and inserts a pointer to it to the structure
+ * 
+ * @param reset - was the structure reset?
+ * @param master - the structure
+ * @return true - if an error happend
+ * @return false - all good :)
+ */
 bool insertWarapper(bool reset, masterHeap<pair>* master)
 {
     pair *add = nullptr;
@@ -199,6 +248,14 @@ bool insertWarapper(bool reset, masterHeap<pair>* master)
     return true;
 }
 
+/**
+ * @brief a simple error checking for structure's median function
+ * 
+ * @param reset - was the structure reset?
+ * @param master - the structure
+ * @return true - if an error happend
+ * @return false - all good :)
+ */
 bool medianWarapper(bool reset, masterHeap<pair>* master)
 {
     if(reset)
@@ -214,5 +271,4 @@ bool medianWarapper(bool reset, masterHeap<pair>* master)
 
     return true;
 }
-
 

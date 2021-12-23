@@ -4,8 +4,8 @@ template <typename T>
 class masterHeap
 {
 private:
-     heap<T>* highMaxHeap;
-     heap<T>* highMinHeap;
+     heap<T>* highMaxHeap;// two heaps max and min containing the same values
+     heap<T>* highMinHeap;// all values here will have higher priority then low heaps
      int highItemCount;
      heap<T>* lowMaxHeap;
      heap<T>* lowMinHeap;

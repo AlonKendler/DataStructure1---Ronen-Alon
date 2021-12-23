@@ -3,7 +3,7 @@
 
 using std::string;
 
-class pair
+class pair// a pair of string and its priority
 {
 private:
     int key;

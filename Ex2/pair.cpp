@@ -22,6 +22,7 @@ void pair::setValue(int key)
     this->value = key;
 }
 
+// neeeded to use the masterHeap
 bool pair::operator>(const pair& p2) const
 {
     return this->getKey()>p2.getKey();
